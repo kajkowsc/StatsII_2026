@@ -37,12 +37,24 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 #####################
 
 set.seed(123)
+data <- (rcauchy(1000, location = 0, scale = 1))
 # create empirical distribution of observed data
+# generate test statistic
 ECDF <- ecdf(data)
 empiricalCDF <- ECDF(data)
-# generate test statistic
-D <- max(abs(empiricalCDF - pnorm(data)))
+d_value <- max(abs(empiricalCDF - pnorm(data)))
 
+KolSmi_test <- function(data) {
+  k <- length(data)
+  i <- 1:k #creating the iteration through terms for the expo calculation
+  expo <- exp(-((2*i - 1)^2) * pi^2)/(8 * (d_value^2))
+  d_obs <- sqrt(2 * pi)/d_value * sum(expo)
+  return(d_obs)
+}
+
+KolSmi_test(data)
+
+  
 #####################
 # Problem 2
 #####################
@@ -50,3 +62,4 @@ D <- max(abs(empiricalCDF - pnorm(data)))
 set.seed (123)
 data <- data.frame(x = runif(200, 1, 10))
 data$y <- 0 + 2.75*data$x + rnorm(200, 0, 1.5)
+
