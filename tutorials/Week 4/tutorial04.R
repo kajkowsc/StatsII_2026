@@ -1,6 +1,32 @@
-#######################
-# Stats 2: tutorial 4 #
-#######################
+##################
+#### Stats II ####
+##################
+
+###############################
+#### Tutorial 4: Logit ####
+###############################
+
+# In today's tutorial, we'll begin to explore logit regressions
+#     1. Estimate logit regression in R using glm()
+#     2. Practice makes inferences using logit regression
+#     3. Compare logit models
+
+#####################
+# load libraries
+# set wd
+# clear global .envir
+#####################
+
+# remove objects
+rm(list=ls())
+# detach all libraries
+detachAllPackages <- function() {
+  basic.packages <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base")
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search()))==1, TRUE, FALSE)]
+  package.list <- setdiff(package.list, basic.packages)
+  if (length(package.list)>0)  for (package in package.list) detach(package,  character.only=TRUE)
+}
+detachAllPackages()
 
 # load libraries
 pkgTest <- function(pkg){
@@ -16,42 +42,35 @@ pkgTest <- function(pkg){
 
 lapply(c(),  pkgTest)
 
-## More on logits: visualising and goodness of fit
+# set wd for current folder
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-graduation <- read.table("http://statmath.wu.ac.at/courses/StatsWithR/Powers.txt",
-                         stringsAsFactors = TRUE)
+## Binary logits:
 
-# 1. This time, let's analyse the data in more detail. Run some checks to see if 
-#    the data are well distributed. Try some simple plots to get an idea of the 
-#    relationship between variables. Drop those errors too.
+# Employing a sample of 1643 men between the ages of 20 and 24 from the U.S. National Longitudinal Survey of Youth.
+# Powers and Xie (2000) investigate the relationship between high-school graduation and parents' education, race, family income, 
+# number of siblings, family structure, and a test of academic ability. 
 
-# 2. Last week we created a kitchen sink model, with nsibs as a binned factor. 
-#    Here was the code:
-graduation$nsibs_cut <- cut(graduation$nsibs, 
-                            breaks = c(0, 0.9, 1, 3, Inf), 
-                            include.lowest = TRUE,
-                            labels = c("None", "One", "Two_Three", "FourPlus"))
+#The dataset contains the following variables:
+# hsgrad Whether: the respondent was graduated from high school by 1985 (Yes or No)
+# nonwhite: Whether the respondent is black or Hispanic (Yes or No)
+# mhs: Whether the respondent’s mother is a high-school graduate (Yes or No)
+# fhs: Whether the respondent’s father is a high-school graduate (Yes or No)
+# income: Family income in 1979 (in $1000s) adjusted for family size
+# asvab: Standardized score on the Armed Services Vocational Aptitude Battery test 
+# nsibs: Number of siblings
+# intact: Whether the respondent lived with both biological parents at age 14 (Yes or No)
 
-mod_1 <- glm(hsgrad ~., 
-             data = graduation[,!names(graduation) %in% c("nsibs")], 
-             family = "binomial")
+graduation <- read.table("http://statmath.wu.ac.at/courses/StatsWithR/Powers.txt")
 
-# Create a more parsimonious model of your own choice. Select three predictor 
-# variables, run the regression, and check with summary.
+# (a) Perform a logistic regression of hsgrad on the other variables in the data set.
+# Compute a likelihood-ratio test of the omnibus null hypothesis that none of the explanatory variables influences high-school graduation. 
+# Then construct 95-percent confidence intervals for the coefficients of the seven explanatory variables. 
+# What conclusions can you draw from these results? Finally, offer two brief, but concrete, interpretations of each of the estimated coefficients of income and intact.
 
-mod_2 <- #your model
-
-# 3. a) Create a new data frame comprising the outcome variable and two columns 
-#       of fitted values, one from mod_1 and another from mod_2. 
-
-# 3. b) Create a pipe (without reassigning) whereby you reorder your new 
-#       dataframe according to the fitted values of mod_1, create a new rank 
-#       variable, then create a scatterplot of rank by fitted value, 
-#       colored by the outcome variable.
-
-# 3. c) Do the same for mod_2. Compare the results.
-
-# 4. Calculate McFadden's Pseudo R squared for both models. 
-#    Which model explains more variance?
-#    What are the p values?
+# (b) The logistic regression in the previous problem assumes that the partial relationship between the log-odds of high-school graduation and number of siblings is linear. 
+# Test for nonlinearity by fitting a model that treats nsibs as a factor, performing an appropriate likelihood-ratio test. 
+# In the course of working this problem, you should discover an issue in the data. 
+# Deal with the issue in a reasonable manner. 
+# Does the result of the test change?
 
