@@ -37,7 +37,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 #####################
 
 set.seed(123)
-data <- (rcauchy(1000, location = 0, scale = 1))
+data <- (rcauchy(1000, location = 0, scale = 1)) 
 # create empirical distribution of observed data
 # generate test statistic
 ECDF <- ecdf(data)
@@ -45,16 +45,17 @@ empiricalCDF <- ECDF(data)
 d_value <- max(abs(empiricalCDF - pnorm(data)))
 
 KolSmi_test <- function(data) {
-  k <- length(data)
-  i <- 1:k #creating the iteration through terms for the expo calculation
+  i <- 1:length(data)
   expo <- exp(-((2*i - 1)^2) * pi^2)/(8 * (d_value^2))
-  d_obs <- sqrt(2 * pi)/d_value * sum(expo)
-  return(d_obs)
+  p_value <- (sqrt(2 * pi)/d_value) * sum(expo)
+  return(p_value)
 }
 
 KolSmi_test(data)
+#[1] 0.006626909
+ks.test(data, "pnorm")
+#D = 0.13573, p-value < 2.2e-16
 
-  
 #####################
 # Problem 2
 #####################
@@ -63,3 +64,15 @@ set.seed (123)
 data <- data.frame(x = runif(200, 1, 10))
 data$y <- 0 + 2.75*data$x + rnorm(200, 0, 1.5)
 
+new_raph <- function(outcome, input, parameter) {
+  residu <- data$y - (parameter[1] + parameter[2]*input)
+  sum_resud <- sum(residu^2)
+}
+results_nr <- optim(fn=new_raph, outcome=data$y, input = data$x, par=c(0,1),method="BFGS")
+results_nr$par
+#  results_nr$par
+#[1] 0.139187 2.726699
+
+coef(lm(data$y~data$x))
+#(Intercept)      data$x 
+#0.1391874   2.7266985 

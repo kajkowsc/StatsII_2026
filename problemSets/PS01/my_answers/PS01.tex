@@ -98,12 +98,16 @@ $$p(D \leq d)= \frac{\sqrt {2\pi}}{d} \sum _{k=1}^{\infty }e^{-(2k-1)^{2}\pi ^{2
 	empiricalCDF <- ECDF(data)
 	# generate test statistic
 	D <- max(abs(empiricalCDF - pnorm(data))) \end{lstlisting}
-
-\vspace{3in}
+\lstinputlisting[language=R, firstline=47,lastline=57]{PS01_stats.R} 
+\begin{description}
+	\item The null hypothesis that is being tested with the Kolmogorov-Smirnov test is that the emperical CDF and the normal CDF have similar theoretical cumulative distribution. The function created above found a p value of 0.0066 which is less than 0.05, therefore, we reject the null hypothesis that they have a similar distribution. Below that result, is the built in R function that calculates the d value and the p value of this function. The d value is similar to that manually calculated above, however, the p value differs greatly. Ultimately, the p values are still less that 0.05 which allows the null hypothesis to be rejected. 
+\end{description}
 
 \section*{Question 2}
 \noindent Estimate an OLS regression in \texttt{R} that uses the Newton-Raphson algorithm (specifically \texttt{BFGS}, which is a quasi-Newton method), and show that you get the equivalent results to using \texttt{lm}. Use the code below to create your data.
 \vspace{.5cm}
-\lstinputlisting[language=R, firstline=51,lastline=53]{PS01.R} 
-
+\lstinputlisting[language=R, firstline=62,lastline=79]{PS01_stats.R} 
+\begin{description}
+	\item To create this function, I put in the parameters discussed in the tutorials (outcome, input, and parameter). Next step was to import the basic linear equation and add the manipulation that Newton-Raphson does in order to get its results. Lastly, using the optim function which finds the optimized parameters given the type of algorithm specified. Finally, checking my results against the lm function, I fould that I got the same (just rounded slightly different) intercept and slope. 
+\end{description}
 \end{document}
