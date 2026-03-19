@@ -26,8 +26,8 @@ pkgTest <- function(pkg){
 # here is where you load any necessary packages
 # ex: stringr
 # lapply(c("stringr"),  pkgTest)
-
-lapply(c("nnet", "MASS", "stargazer"),  pkgTest)
+install.packages("AER")
+lapply(c("nnet", "MASS", "stargazer", "AER"),  pkgTest)
 
 # set wd for current folder
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -55,7 +55,7 @@ unorder_gdp <- multinom(
 )
 summary(unorder_gdp)
 
-stargazer(unorder_gdp, type = "latex")
+stargazer(unorder_gdp, type = "latex", title = "Unordered Ordered Multinominal")
 
 exp(coef(unorder_gdp))
 z <- summary(unorder_gdp)$coefficients/summary(unorder_gdp)$standard.errors
@@ -63,9 +63,10 @@ z <- summary(unorder_gdp)$coefficients/summary(unorder_gdp)$standard.errors
 
 #part 2
 order_gdp <- polr(GDPWdiff_cat ~ REG + OIL, data = gdp_data, Hess = T)
-summary(order_gdp)
+gdp_conf <- exp(cbind(OR = coef(order_gdp), confint(order_gdp)))
 
-stargazer(order_gdp, type = "latex")
+stargazer(order_gdp, type = "latex", title = "Ordered Multinominal")
+stargazer(gdp_conf, type = "latex")
 
 order_gdp$zeta
 ctable <- coef(summary(order_gdp))
@@ -82,14 +83,12 @@ mexico_elections <- read.csv("https://raw.githubusercontent.com/ASDS-TCD/StatsII
 #a. run a Poisson regression
 PAN_pois <- glm(PAN.visits.06 ~ competitive.district + marginality.06 + PAN.governor.06,
                 data = mexico_elections,
-                family = poisson(link = "log"))
-summary(PAN_pois)
+                family = poisson)
+
+dispersiontest(PAN_pois)
+
 stargazer(PAN_pois, type = "latex")
 
-coefs <- summary(PAN_pois)$coefficients
-z <- coefs[, "Estimate"] / coefs[, "Std. Error"]
-p <- 2 * (1 - pnorm(abs(z)))
-cbind(coefs, z_value = z, p_value = p)
 
 #c. estimated means
 scenerio_values <- data.frame(
@@ -97,6 +96,11 @@ scenerio_values <- data.frame(
   marginality.06 = 0,
   PAN.governor.06 = 1
 )
-predict(PAN_pois, scenerio_values, type = "response")
-#1 
-#0.01494818 
+pred_PAN <- cbind(predict(PAN_pois, 
+                          scenerio_values, 
+                          type = "response", 
+                          se.fit = TRUE), 
+                  scenerio_values)
+summary(pred_PAN)
+
+

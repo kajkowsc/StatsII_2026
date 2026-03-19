@@ -97,12 +97,11 @@
 \end{itemize}
 \newpage
 \noindent Please answer the following questions:
-
 \begin{enumerate}
-	\item Construct and interpret an unordered multinomial logit with \texttt{GDPWdiff} as the output and "no change" as the reference category, including the estimated cutoff points and coefficients.
+\item Construct and interpret an unordered multinomial logit with \texttt{GDPWdiff} as the output and "no change" as the reference category, including the estimated cutoff points and coefficients.
 		\lstinputlisting[language=R, firstline=49, lastline=56]{PS3.R} 
 	\begin{table}[!htbp] \centering 
-		\caption{} 
+		\caption{Unordered Multinominal Logit} 
 		\label{} 
 		\begin{tabular}{@{\extracolsep{5pt}}lcc} 
 			\\[-1.8ex]\hline 
@@ -128,13 +127,16 @@
 			\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 		\end{tabular} 
 	\end{table} 
-		\begin{description}
-		\item description
-	\end{description}
+\begin{itemize}
+		\item In a given country, there is an increase in the baseline odds (no change in GDP) that the difference in GDP will be negative by 1.379 times when a country is a democracy. 
+		\item  In a given country, there is an increase in the baseline odds (no change in GDP) that the difference in GDP will be positive by 1.769 times when a country is a democracy. 
+		\item  In a given country, there is an increase in the baseline odds (no change in GDP) that the difference in GDP will be negative by 4.784 times given the average ratio of fuel exports in 1984-86 exceeded 50 percent. 
+		\item  In a given country, there is an increase in the baseline odds (no change in GDP) that the difference in GDP will be postive by 4.576 times given the average ratio of fuel exports in 1984-86 exceeded 50 percent. 
+	\end{itemize}
 	\item Construct and interpret an ordered multinomial logit with \texttt{GDPWdiff} as the outcome variable, including the estimated cutoff points and coefficients.
-\lstinputlisting[language=R, firstline=65, lastline=65]{PS3.R} 
+\lstinputlisting[language=R, firstline=65, lastline=69]{PS3.R} 
 	\begin{table}[!htbp] \centering 
-		\caption{} 
+		\caption{Ordered Multinominal Logit} 
 		\label{} 
 		\begin{tabular}{@{\extracolsep{5pt}}lc} 
 			\\[-1.8ex]\hline 
@@ -156,9 +158,23 @@
 			\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 		\end{tabular} 
 	\end{table} 
-	\begin{description}
-		\item description
-	\end{description}
+	\begin{table}[!htbp] \centering 
+		\caption{Odds Ratio and CI}
+		\label{} 
+		\begin{tabular}{@{\extracolsep{5pt}} cccc} 
+			\\[-1.8ex]\hline 
+			\hline \\[-1.8ex] 
+			& OR & 2.5 \% & 97.5 \% \\ 
+			\hline \\[-1.8ex] 
+			REG & $1.507$ & $1.301$ & $1.747$ \\ 
+			OIL & $0.836$ & $0.668$ & $1.051$ \\ 
+			\hline \\[-1.8ex] 
+		\end{tabular} 
+	\end{table} 
+	\begin{itemize}
+		\item For a country that is a democracy, the log odds of being in a higher GDP change category are 1.507 times higher compared to a country that isn't a democracy, holding all other variables constant. 
+		\item IF the coefficent was statisically significant: For a country that had the average ratio of fuel exports to total exports in 1984-86 that exceeded 50 percent, the log odd of being in a higher GDP change category are 0.836 times higher compared to a country that did not, holding all other variables constant. 
+	\end{itemize}
 \end{enumerate}
 
 \newpage
@@ -170,7 +186,7 @@
 \begin{enumerate}
 	\item [(a)]
 	Run a Poisson regression because the outcome is a count variable. Is there evidence that PAN presidential candidates visit swing districts more? Provide a test statistic and p-value.
-	\lstinputlisting[language=R, firstline=83, lastline=92]{PS3.R} 
+	\lstinputlisting[language=R, firstline=84, lastline=91]{PS3.R} 
 	\begin{table}[!htbp] \centering 
 		\caption{} 
 		\label{} 
@@ -213,7 +229,7 @@
 	\end{description}
 	\item [(c)]
 	Provide the estimated mean number of visits from the winning PAN presidential candidate for a hypothetical district that was competitive (\texttt{competitive.district}=1), had an average poverty level (\texttt{marginality.06} = 0), and a PAN governor (\texttt{PAN.governor.06}=1).
-\lstinputlisting[language=R, firstline=95, lastline=102]{PS3.R} 
+\lstinputlisting[language=R, firstline=96, lastline=103]{PS3.R} 
 \begin{description}
 	\item description
 \end{description}	
