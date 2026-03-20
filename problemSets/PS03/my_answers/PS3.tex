@@ -186,52 +186,66 @@
 \begin{enumerate}
 	\item [(a)]
 	Run a Poisson regression because the outcome is a count variable. Is there evidence that PAN presidential candidates visit swing districts more? Provide a test statistic and p-value.
-	\lstinputlisting[language=R, firstline=84, lastline=91]{PS3.R} 
-	\begin{table}[!htbp] \centering 
-		\caption{} 
-		\label{} 
-		\begin{tabular}{@{\extracolsep{5pt}}lc} 
-			\\[-1.8ex]\hline 
-			\hline \\[-1.8ex] 
-			& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
-			\cline{2-2} 
-			\\[-1.8ex] & PAN.visits.06 \\ 
-			\hline \\[-1.8ex] 
-			competitive.district & $-$0.081 \\ 
-			& (0.171) \\ 
-			& \\ 
-			marginality.06 & $-$2.080$^{***}$ \\ 
-			& (0.117) \\ 
-			& \\ 
-			PAN.governor.06 & $-$0.312$^{*}$ \\ 
-			& (0.167) \\ 
-			& \\ 
-			Constant & $-$3.810$^{***}$ \\ 
-			& (0.222) \\ 
-			& \\ 
-			\hline \\[-1.8ex] 
-			Observations & 2,407 \\ 
-			Log Likelihood & $-$645.606 \\ 
-			Akaike Inf. Crit. & 1,299.213 \\ 
-			\hline 
-			\hline \\[-1.8ex] 
-			\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-		\end{tabular} 
-	\end{table} 
+		\begin{itemize}
+		\item Null hypothesis: There is no difference in PAN visits in whether the district is a close/swing or "safe seat". 
+		\item Alternative hypothesis: There are more PAN visits to a swing district
+	\end{itemize}	
+	\lstinputlisting[language=R, firstline=84, lastline=90]{PS3.R} 
+\begin{table}[!htbp] \centering 
+	\small
+	\caption{} 
+	\label{} 
+	\begin{tabular}{@{\extracolsep{5pt}}lc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		& \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+		\cline{2-2} 
+		\\[-1.8ex] & PAN.visits.06 \\ 
+		\hline \\[-1.8ex] 
+		competitive.district & $-$0.081 \\ 
+		& (0.171) \\ 
+		& \\ 
+		marginality.06 & $-$2.080$^{***}$ \\ 
+		& (0.117) \\ 
+		& \\ 
+		PAN.governor.06 & $-$0.312$^{*}$ \\ 
+		& (0.167) \\ 
+		& \\ 
+		Constant & $-$3.810$^{***}$ \\ 
+		& (0.222) \\ 
+		& \\ 
+		\hline \\[-1.8ex] 
+		Observations & 2,407 \\ 
+		Log Likelihood & $-$645.606 \\ 
+		Akaike Inf. Crit. & 1,299.213 \\ 
+		\hline 
+		\hline \\[-1.8ex] 
+		\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+	\end{tabular} 
+\end{table} 
+\newpage
 \begin{description}
-	\item description
-\end{description}	
-\vspace*{1 cm}
+	\item The p value of 0.63 for the coefficent competitive.district is greater than 0.05, therefore, we fail to reject the null hypothesis that there is no difference between PAN visits in whether the district is a close/swing or "safe seat". There is insufficent evidence to support the alternative hypothesis that there are more PAN visits in swing districts. 
+\end{description}
 	\item [(b)]
 	Interpret the \texttt{marginality.06} and \texttt{PAN.governor.06} coefficients.
-		\begin{description}
-		\item description
-	\end{description}
+	\begin{itemize}
+		\item An increase of marginality by 1 unit  decreases the number of visits by PAN presidential canidate by a multiplicative factor of $\exp -2.080$ $\approx$ 0.125. 
+		\item When a district has a PAN-affiliated governor, it decreases the number of visits by PAN presidential canidate by a multiplicative factor of $\exp -0.312$ $\approx$ 0.73.
+	\end{itemize}
 	\item [(c)]
 	Provide the estimated mean number of visits from the winning PAN presidential candidate for a hypothetical district that was competitive (\texttt{competitive.district}=1), had an average poverty level (\texttt{marginality.06} = 0), and a PAN governor (\texttt{PAN.governor.06}=1).
-\lstinputlisting[language=R, firstline=96, lastline=103]{PS3.R} 
+\begin{equation}
+	log(\lambda) = -3.810 - 0.081(competitive.district) - 2.080(marginality.06) - 0.312(PAN.governor.06)
+\end{equation}
+\begin{equation}
+	log(\lambda) = -3.810 - 0.081(1) - 2.080(0) - 0.312(1)
+\end{equation}
+\begin{equation}
+	log(\lambda) = - 4.203
+\end{equation}
 \begin{description}
-	\item description
+	\item The mean number of visits from the winning PAN presidential canidate for a district that was competitive, had an average poverty level and a PAN governor is -4.203. Since the problem is dealing with visits, it is impossible to visit a negative amount of times to a district so it can be said that the number of visits is 0. 
 \end{description}	
 \end{enumerate}
 

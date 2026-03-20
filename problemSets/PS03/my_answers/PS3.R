@@ -84,23 +84,12 @@ mexico_elections <- read.csv("https://raw.githubusercontent.com/ASDS-TCD/StatsII
 PAN_pois <- glm(PAN.visits.06 ~ competitive.district + marginality.06 + PAN.governor.06,
                 data = mexico_elections,
                 family = poisson)
-
-dispersiontest(PAN_pois)
+summary(PAN_pois)
+summary(PAN_pois)$coefficients["competitive.district", ]
+#   Estimate  Std. Error     z value    Pr(>|z|) 
+#  -0.08135181  0.17068819 -0.47661062  0.63363942 
 
 stargazer(PAN_pois, type = "latex")
 
-
-#c. estimated means
-scenerio_values <- data.frame(
-  competitive.district = 1,
-  marginality.06 = 0,
-  PAN.governor.06 = 1
-)
-pred_PAN <- cbind(predict(PAN_pois, 
-                          scenerio_values, 
-                          type = "response", 
-                          se.fit = TRUE), 
-                  scenerio_values)
-summary(pred_PAN)
-
-
+#equation: log(PAN.visits.06) = -3.810 - 0.081(competitive.district) - 2.080(marginality.06) - 0.312(PAN.governor.06)
+# log(PAN.visits.06) = -3.810 - 0.081(1) - 2.080(0) - 0.312(1)
