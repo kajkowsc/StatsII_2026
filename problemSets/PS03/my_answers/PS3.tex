@@ -235,17 +235,9 @@
 	\end{itemize}
 	\item [(c)]
 	Provide the estimated mean number of visits from the winning PAN presidential candidate for a hypothetical district that was competitive (\texttt{competitive.district}=1), had an average poverty level (\texttt{marginality.06} = 0), and a PAN governor (\texttt{PAN.governor.06}=1).
-\begin{equation}
-	log(\lambda) = -3.810 - 0.081(competitive.district) - 2.080(marginality.06) - 0.312(PAN.governor.06)
-\end{equation}
-\begin{equation}
-	log(\lambda) = -3.810 - 0.081(1) - 2.080(0) - 0.312(1)
-\end{equation}
-\begin{equation}
-	log(\lambda) = - 4.203
-\end{equation}
+	\lstinputlisting[language=R, firstline=94, lastline=100]{PS3.R} 
 \begin{description}
-	\item The mean number of visits from the winning PAN presidential canidate for a district that was competitive, had an average poverty level and a PAN governor is -4.203. Since the problem is dealing with visits, it is impossible to visit a negative amount of times to a district so it can be said that the number of visits is 0. 
+	\item When a district is competitive, had an average poverty level, and a PAN governor the estimated mean is $\exp 0.015$ $\approx$ 1.015. Therefore, the chance of a PAN canidate visiting said district increases by approximately 1.5 percent. 
 \end{description}	
 \end{enumerate}
 

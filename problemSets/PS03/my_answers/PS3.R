@@ -91,5 +91,11 @@ summary(PAN_pois)$coefficients["competitive.district", ]
 
 stargazer(PAN_pois, type = "latex")
 
-#equation: log(PAN.visits.06) = -3.810 - 0.081(competitive.district) - 2.080(marginality.06) - 0.312(PAN.governor.06)
-# log(PAN.visits.06) = -3.810 - 0.081(1) - 2.080(0) - 0.312(1)
+newdata <- data.frame(
+  competitive.district = 1,
+  marginality.06 = 0,
+  PAN.governor.06 = 1
+)
+predict(PAN_pois, newdata, type = "response")
+# 0.01494818 
+
