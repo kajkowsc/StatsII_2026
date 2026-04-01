@@ -19,10 +19,8 @@ mainliners <- subset(rep_data, mainline == 1 & ambiguous == 0)
 evan.cath <- subset(rep_data, mainline != 1 & ambiguous==0)
 
 #------------------------------------------------------------
-#MODELS
+#TABLE 1: Same-sex marriage (Roman Catholics & Evangelical Protestants)
 #------------------------------------------------------------
-
-#table 1: Same-sex marriage (Roman Catholics & Evangelical Protestants)
 secular1 <- glm(ssm ~ age + female + black + education.collapsed 
              + income.collapsed + ideology.collapsed + romancatholic 
              + partyid + secular.knowledge + partyid*secular.knowledge, 
@@ -59,9 +57,10 @@ stargazer(
   title = "Evangelical Protestants and Roman Catholics' support of SSM Replication",       
   column.labels = c("Secular", "Naive", "Culture Wars", "RPS"),
   font.size = "scriptsize" )
-#------------------------------------------------------------
 
-#table 2: Abortion (Roman Catholics & Evangelical Protestants)
+#------------------------------------------------------------
+#TABLE 2: Abortion (Roman Catholics & Evangelical Protestants)
+#------------------------------------------------------------
 secular2 <- glm(abortion ~ age + female + black + education.collapsed 
                 + income.collapsed + ideology.collapsed + romancatholic 
                 + partyid + secular.knowledge + partyid*secular.knowledge, 
@@ -85,10 +84,10 @@ cw2 <- glm(abortion ~ age + female + black + education.collapsed
 summary(cw2)
 
 rps2 <- glm(abortion ~ age + female + black + education.collapsed 
-            + income.collapsed + ideology.collapsed + romancatholic
+            + income.collapsed + ideology.collapsed + romancatholic 
             + partyid + secular.knowledge + partyid*secular.knowledge
-            + church + bible.collapsed + church*bible.collapsed 
-            + church*secular.knowledge + rps.ssm + church*rps.ssm, 
+            + church + bible.collapsed + church*bible.collapsed
+            + church*secular.knowledge + rps.abortion + church*rps.abortion, 
             data=evan.cath, family="binomial")
 summary(rps2)
 
@@ -100,8 +99,8 @@ stargazer(
   font.size = "scriptsize" )
 
 #------------------------------------------------------------
-
-#table 3: Linking of views on ssm and abortion (Roman Catholics & Evangelical Protestants)
+#TABLE 3: Linking of views on ssm and abortion (Roman Catholics & Evangelical Protestants)
+#------------------------------------------------------------
 model1 = glm(ssm ~ age + female + black + education.collapsed 
              + income.collapsed + ideology.collapsed + romancatholic 
              + partyid + secular.knowledge + partyid*secular.knowledge
@@ -124,9 +123,10 @@ stargazer(
   title = "RPS does not promote cross-over issue constraint for Evangelical Protestants and Roman Catholics",       
   column.labels = c("SSM Support", "Abortion Support"),
   font.size = "scriptsize" )
+
 #------------------------------------------------------------
-  
-#table 4: Same-sex marriage(Mainline Protestants)
+#TABLE 4: Same-sex marriage(Mainline Protestants)
+#------------------------------------------------------------
 secular4 <- glm(ssm ~ partyid + secular.knowledge + partyid*secular.knowledge, 
              data=mainliners, family="binomial")
 summary(secular4)
@@ -157,8 +157,8 @@ stargazer(
   font.size = "scriptsize" )
 
 #------------------------------------------------------------
-
-#table 5: Abortion (Mainline Protestants)
+#TABLE 5: Abortion (Mainline Protestants)
+#------------------------------------------------------------
 secular5 <- glm(abortion ~ partyid + secular.knowledge + partyid*secular.knowledge, 
                 data=mainliners, family="binomial")
 summary(secular5)
@@ -177,7 +177,7 @@ summary(cw5)
 rps5 <- glm(abortion ~ partyid + secular.knowledge 
             + partyid*secular.knowledge + church + bible.collapsed 
             + church*bible.collapsed + church*secular.knowledge 
-            + rps.ssm + church*rps.ssm, 
+            + rps.abortion + church*rps.abortion, 
             data=mainliners, family="binomial")
 summary(rps5)
 
@@ -190,6 +190,7 @@ stargazer(
 
 #------------------------------------------------------------
 #Data manipulation for 6&7
+#------------------------------------------------------------
 # Reports of Church teaching (ssm)
 unique(rep_data$church.ssm)
 rep_data$church.ssm <- as.character(rep_data$church.ssm)
@@ -207,38 +208,50 @@ church.reports.abortion <- recode(rep_data$church.abortion,
                                  "Not Available" = NA_character_)
 table(church.reports.abortion)
 #------------------------------------------------------------
-  
-#table 6: RPS answer (SSM) and support/opposition to SSM
+#TABLE 6: RPS answer (SSM) and support/opposition to SSM
+#------------------------------------------------------------
 table6 <-  prop.table(table(church.reports.ssm[rep_data$ambiguous==0], rep_data$ssm[rep_data$ambiguous==0]), 2)
 round(table6, digits = 2)
 table6_counts <- table(church.reports.ssm[rep_data$ambiguous==0], rep_data$ssm[rep_data$ambiguous==0])
 sum(table6_counts[, 1]) 
 sum(table6_counts[, 2]) 
 
-stargazer(table6,
-          type = "latex",
-          summary = FALSE,
-          rownames = TRUE,
-          title = "Beliefs about church teaching on same-sex marriage by personal opinion on same-sex marriage Replication",
-          digits = 2)
 #------------------------------------------------------------
-
-#table 7: RPS answer (abortion) and support/opposition 
+#TABLE 7: RPS answer (abortion) and support/opposition 
+#------------------------------------------------------------
 table7 <-  prop.table(table(church.reports.abortion[rep_data$ambiguous==0], rep_data$abortion[rep_data$ambiguous==0]), 2)
 round(table7, digits = 2)
 table7_counts <- table(church.reports.abortion[rep_data$ambiguous==0], rep_data$abortion[rep_data$ambiguous==0])
 sum(table7_counts[, 1]) 
 sum(table7_counts[, 2]) 
 
-stargazer(table7,
+n_opposes <- sum(table7_counts[, 1])
+n_supports <- sum(table7_counts[, 2])
+table7_df <- as.data.frame.matrix(table7)
+colnames(table7_df) <- c("Opposes", "Supports")
+
+table7_df <- rbind(table7_df, 
+                   Total = colSums(table7_df),
+                      n  = c(n_opposes, n_supports))
+
+#------------------------------------------------------------
+stargazer(table6,
+          type = "latex",
+          # summary = FALSE,
+          rownames = TRUE,
+          title = "Beliefs about church teaching on same-sex marriage by personal opinion on same-sex marriage Replication",
+          digits = 2)
+
+stargazer(table7_df,
           type = "latex",
           summary = FALSE,
           rownames = TRUE,
           title = "Beliefs about church teaching on abortion by personal opinion on unrestricted abortion rights Replication",
           digits = 2)
-#------------------------------------------------------------
 
-#Table 8: RPS Models (Incorrect RPS) (Evangelical Protestants and Roman Catholics)
+#------------------------------------------------------------
+#TABLE 8: RPS Models (Incorrect RPS) (Evangelical Protestants and Roman Catholics)
+#------------------------------------------------------------
 inc.ssm <- glm(ssm ~ age + female + black + education.collapsed 
               + income.collapsed + ideology.collapsed + romancatholic 
               + partyid + secular.knowledge + partyid*secular.knowledge
@@ -267,6 +280,8 @@ stargazer(
 #------------------------------------------------------------
 #EXTENSION
 #------------------------------------------------------------
+
+
 
 #Evangelical and Roman Catholics: SSM
 cw1 <- glm(ssm ~ age + female + black + education.collapsed 

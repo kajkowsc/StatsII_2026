@@ -63,7 +63,7 @@
 \newtheorem{hyp}{Hypothesis}
 
 \title{Do the stances of Christian churches influence identifiers' politcial beliefs? }
-\date{April 3, 2026}
+\date{April 1, 2026}
 \author{Caroline Kajkowski}
 
 
@@ -86,7 +86,7 @@
 \section{Data}
 	\lstinputlisting[language=R, firstline=14, lastline=19]{rep_models.R} 
 	\begin{description}
-		\item In the original R script, the author decides to separate the dataset to create two new datasets with all inputs of Roman Catholic and Evangelical Protestants in one and Mainline Protestants in another. The justification for this in the paper was that the author found that the Roman Catholic church and Evangelical Protestants have more clear universal opinions on same sex marriage and abortion rights, while Mainline Protestants have varrying views on these social policies. Therefore, the study is focused on the effect of RPS on Roman Catholic and Evangelical Protestants while treating Mainline Protestants as the baseline to compare later on. 
+		\item In the original R script, the author decides to separate the dataset to create two new datasets with all inputs of Roman Catholic and Evangelical Protestants in one and Mainline Protestants in another. The justification for this in the paper was that the author found that the Roman Catholic church and Evangelical Protestants have more clear conservative opinions on same-sex marriage and abortion rights, while Mainline Protestants have varrying views on these social issues. Therefore, the study is focused on the effect of RPS on Roman Catholic and Evangelical Protestants while treating Mainline Protestants as the baseline to compare later on. 
 		\item [Input variables:]
 		\item Party ID (0 = strong Democrat; 6 = strong Republican)
 		\item Church attendance (0 = never; 5 = more than once per week)
@@ -141,16 +141,9 @@
 	& + \beta_8 \, \text{RPS} \\
 	& + \beta_9 \, (\text{Church Attendance} \times \text{RPS}) 
 \end{align*}
-\item Tables 1 and 2 in this paper look at Evangelical Protestants and Roman Catholics support of same-sex marriage and abortion rights (respectively) using all four models above. The author concludes that the secular models provides insight 
-\item Table 3 takes a different approach and looks at whether the respondent's stance on same sex marriage predicts their stance on abortion. So the model looks a bit different (shown in the code below) 
-\lstinputlisting[language=R, firstline=104, lastline=119]{rep_models.R} 
-\item Tables 4 and 5 look at the Mainline Protestants. As mentioned before, the data was split into two datasets because the author believed that Mainline protestants have more mixed views on this topics in comparison to Roman Catholics and Evangelical Protestants. The author also chose to not include all the demographic variables in the Mainline Protestant models. 
-\item Tables 6 and 7 
-\lstinputlisting[language=R, firstline=192, lastline=238]{rep_models.R} 
-\item Table 8
-\lstinputlisting[language=R, firstline=242, lastline=258]{rep_models.R} 
-\end{description}
-\begin{table}[!htbp] \centering 
+\section{Replicated Tables}
+\item Tables 1 and 2 in this paper look at Evangelical Protestants and Roman Catholics support of same-sex marriage and abortion rights (respectively) using all four models above. The author reports that the secular models conclude that the interaction term of party identification x secular political knowledge is not significant, therefore, justified RPS as an appropriate measurement for discussing political influence on religious identifiers. This is shown in the RPS models with the interaction term of RPS x church attendence being significant. This means that on average for a religious identifier who correctly knows their tradition's stance, each additional unit of church attendance is associated with a decrease in the log-odds of supporting same-sex marriage by 0.605. Also that on average for a religious identifier who correctly knows their tradition's view on abortion, each additional unit of church attendance is associated with a decrease in the log-odds of supporting abortion by 0.818. The difference between the different levels of church attendance frequency (0-5) is illustrated better later on in the report (Figures 1-4). 
+\begin{table}[H] \centering 
 	\caption{Evangelical Protestants and Roman Catholics' support of SSM Replication} 
 	\label{} 
 	\scriptsize 
@@ -223,7 +216,7 @@
 		\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\begin{table}[H] \centering 
 	\caption{Evangelical Protestants and Roman Catholics' support of abortion Replication} 
 	\label{} 
 	\scriptsize 
@@ -236,67 +229,70 @@
 		& Secular & Naive & Culture Wars & RPS \\ 
 		\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
 		\hline \\[-1.8ex] 
-		age & $-$0.012 & $-$0.019 & $-$0.019 & $-$0.019 \\ 
-		& (0.011) & (0.013) & (0.013) & (0.013) \\ 
+		age & $-$0.012 & $-$0.019 & $-$0.019 & $-$0.015 \\ 
+		& (0.011) & (0.013) & (0.013) & (0.015) \\ 
 		& & & & \\ 
-		female & 0.419 & 0.298 & 0.297 & 0.319 \\ 
-		& (0.326) & (0.363) & (0.364) & (0.371) \\ 
+		female & 0.419 & 0.298 & 0.297 & 0.320 \\ 
+		& (0.326) & (0.363) & (0.364) & (0.397) \\ 
 		& & & & \\ 
-		black & 0.411 & $-$0.085 & $-$0.087 & $-$0.150 \\ 
-		& (0.505) & (0.629) & (0.631) & (0.629) \\ 
+		black & 0.411 & $-$0.085 & $-$0.087 & $-$0.716 \\ 
+		& (0.505) & (0.629) & (0.631) & (0.674) \\ 
 		& & & & \\ 
-		education.collapsed & $-$0.069 & $-$0.042 & $-$0.042 & $-$0.067 \\ 
-		& (0.128) & (0.150) & (0.151) & (0.155) \\ 
+		education.collapsed & $-$0.069 & $-$0.042 & $-$0.042 & 0.009 \\ 
+		& (0.128) & (0.150) & (0.151) & (0.173) \\ 
 		& & & & \\ 
-		income.collapsed & 0.077 & 0.036 & 0.036 & 0.036 \\ 
-		& (0.059) & (0.065) & (0.065) & (0.067) \\ 
+		income.collapsed & 0.077 & 0.036 & 0.036 & 0.046 \\ 
+		& (0.059) & (0.065) & (0.065) & (0.072) \\ 
 		& & & & \\ 
-		ideology.collapsed & $-$1.120$^{***}$ & $-$1.320$^{***}$ & $-$1.320$^{***}$ & $-$1.361$^{***}$ \\ 
-		& (0.255) & (0.310) & (0.310) & (0.315) \\ 
+		ideology.collapsed & $-$1.120$^{***}$ & $-$1.320$^{***}$ & $-$1.320$^{***}$ & $-$1.498$^{***}$ \\ 
+		& (0.255) & (0.310) & (0.310) & (0.330) \\ 
 		& & & & \\ 
-		romancatholic & 0.921$^{***}$ & 0.775$^{**}$ & 0.776$^{**}$ & 0.657$^{*}$ \\ 
-		& (0.328) & (0.371) & (0.377) & (0.385) \\ 
+		romancatholic & 0.921$^{***}$ & 0.775$^{**}$ & 0.776$^{**}$ & 0.515 \\ 
+		& (0.328) & (0.371) & (0.377) & (0.422) \\ 
 		& & & & \\ 
-		partyid & $-$0.171 & $-$0.150 & $-$0.151 & $-$0.127 \\ 
-		& (0.140) & (0.163) & (0.168) & (0.174) \\ 
+		partyid & $-$0.171 & $-$0.150 & $-$0.151 & $-$0.039 \\ 
+		& (0.140) & (0.163) & (0.168) & (0.182) \\ 
 		& & & & \\ 
-		secular.knowledge & $-$0.124 & $-$0.250 & $-$0.242 & $-$0.252 \\ 
-		& (0.314) & (0.366) & (0.473) & (0.477) \\ 
+		secular.knowledge & $-$0.124 & $-$0.250 & $-$0.242 & $-$0.124 \\ 
+		& (0.314) & (0.366) & (0.473) & (0.503) \\ 
 		& & & & \\ 
-		church &  & 0.565$^{**}$ & 0.569$^{*}$ & 0.661$^{*}$ \\ 
-		&  & (0.271) & (0.326) & (0.349) \\ 
+		church &  & 0.565$^{**}$ & 0.569$^{*}$ & 0.823$^{**}$ \\ 
+		&  & (0.271) & (0.326) & (0.359) \\ 
 		& & & & \\ 
-		bible.collapsed &  & 1.105$^{**}$ & 1.104$^{**}$ & 1.095$^{**}$ \\ 
-		&  & (0.511) & (0.512) & (0.517) \\ 
+		bible.collapsed &  & 1.105$^{**}$ & 1.104$^{**}$ & 0.928$^{*}$ \\ 
+		&  & (0.511) & (0.512) & (0.535) \\ 
 		& & & & \\ 
-		rps.ssm &  &  &  & 0.162 \\ 
-		&  &  &  & (0.732) \\ 
+		rps.abortion &  &  &  & 0.645 \\ 
+		&  &  &  & (0.808) \\ 
 		& & & & \\ 
-		partyid:secular.knowledge & $-$0.059 & $-$0.056 & $-$0.055 & $-$0.069 \\ 
-		& (0.088) & (0.100) & (0.102) & (0.105) \\ 
+		partyid:secular.knowledge & $-$0.059 & $-$0.056 & $-$0.055 & $-$0.132 \\ 
+		& (0.088) & (0.100) & (0.102) & (0.109) \\ 
 		& & & & \\ 
-		church:bible.collapsed &  & $-$0.530$^{***}$ & $-$0.530$^{***}$ & $-$0.493$^{***}$ \\ 
-		&  & (0.179) & (0.179) & (0.179) \\ 
+		church:bible.collapsed &  & $-$0.530$^{***}$ & $-$0.530$^{***}$ & $-$0.385$^{**}$ \\ 
+		&  & (0.179) & (0.179) & (0.195) \\ 
 		& & & & \\ 
-		secular.knowledge:church &  &  & $-$0.004 & 0.020 \\ 
-		&  &  & (0.142) & (0.146) \\ 
+		secular.knowledge:church &  &  & $-$0.004 & 0.021 \\ 
+		&  &  & (0.142) & (0.159) \\ 
 		& & & & \\ 
-		church:rps.ssm &  &  &  & $-$0.324 \\ 
-		&  &  &  & (0.241) \\ 
+		church:rps.abortion &  &  &  & $-$0.818$^{***}$ \\ 
+		&  &  &  & (0.275) \\ 
 		& & & & \\ 
-		Constant & 1.898$^{**}$ & 2.085$^{*}$ & 2.074$^{*}$ & 2.090$^{*}$ \\ 
-		& (0.839) & (1.095) & (1.174) & (1.202) \\ 
+		Constant & 1.898$^{**}$ & 2.085$^{*}$ & 2.074$^{*}$ & 1.768 \\ 
+		& (0.839) & (1.095) & (1.174) & (1.258) \\ 
 		& & & & \\ 
 		\hline \\[-1.8ex] 
 		Observations & 279 & 245 & 245 & 245 \\ 
-		Log Likelihood & $-$138.275 & $-$112.479 & $-$112.478 & $-$109.516 \\ 
-		Akaike Inf. Crit. & 298.551 & 252.957 & 254.957 & 253.033 \\ 
+		Log Likelihood & $-$138.275 & $-$112.479 & $-$112.478 & $-$100.031 \\ 
+		Akaike Inf. Crit. & 298.551 & 252.957 & 254.957 & 234.063 \\ 
 		\hline 
 		\hline \\[-1.8ex] 
 		\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
-\end{table} 
-\begin{table}[!htbp] \centering 
+\end{table}
+\newpage
+\item Table 3 takes a different approach and looks at whether the respondent's stance on same sex marriage predicts their stance on abortion and vise versa. In the code below, the models now include to RPS for the other outcome to see if they statisically impact each other. The table reports that the opposite RPS has no significance on the support of same-sex marriage or abortion. Therefore, the author concludes that RPS does not promote cross-issue constraint for Evangelical Protestants and Roman Catholics. 
+\lstinputlisting[language=R, firstline=104, lastline=119]{rep_models.R} 
+\begin{table}[H] \centering 
 	\caption{RPS does not promote cross-over issue constraint for Evangelical Protestants and Roman Catholics} 
 	\label{} 
 	\scriptsize 
@@ -375,7 +371,8 @@
 		\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\item Tables 4 and 5 look at the Mainline Protestants's support for same-sex marriage and abortion, however, the author choose to exclude the demographic variables from these models. As mentioned before, the author believed that Mainline protestants have more mixed views on this topics in comparison to Roman Catholics and Evangelical Protestants. Therefore, the main purpose of these models are to see if the RPS x church interaction are significant for the Mainline Protestants as well. In both tables they show that this term is indeed not significant. Therefore, the author concludes that RPS significantly predicts the attitudes of Evangelical Protestants and Roman Catholics but because Mainline Protestants's teachings are less clear RPS does not significantly predict their attitudes on same-sex marriage and abortion. 
+\begin{table}[H] \centering 
 	\caption{Mainline Protestants' support of SSM Replication} 
 	\label{} 
 	\scriptsize 
@@ -427,7 +424,7 @@
 		\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\begin{table}[H] \centering 
 	\caption{Mainline Protestants' support of Abortion Replication} 
 	\label{} 
 	\scriptsize 
@@ -440,46 +437,48 @@
 		& Secular & Naive & Culture Wars & RPS \\ 
 		\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
 		\hline \\[-1.8ex] 
-		partyid & $-$0.309$^{*}$ & $-$0.290 & $-$0.233 & $-$0.239 \\ 
-		& (0.174) & (0.191) & (0.200) & (0.203) \\ 
+		partyid & $-$0.309$^{*}$ & $-$0.290 & $-$0.233 & $-$0.173 \\ 
+		& (0.174) & (0.191) & (0.200) & (0.211) \\ 
 		& & & & \\ 
-		secular.knowledge & 0.557 & 0.503 & $-$0.754 & $-$0.714 \\ 
-		& (0.537) & (0.559) & (0.801) & (0.819) \\ 
+		secular.knowledge & 0.557 & 0.503 & $-$0.754 & $-$1.087 \\ 
+		& (0.537) & (0.559) & (0.801) & (0.894) \\ 
 		& & & & \\ 
-		church &  & $-$0.214 & $-$0.607 & $-$0.606 \\ 
-		&  & (0.438) & (0.492) & (0.504) \\ 
+		church &  & $-$0.214 & $-$0.607 & $-$0.623 \\ 
+		&  & (0.438) & (0.492) & (0.594) \\ 
 		& & & & \\ 
-		bible.collapsed &  & 0.025 & 0.814 & 0.850 \\ 
-		&  & (0.679) & (0.842) & (0.856) \\ 
+		bible.collapsed &  & 0.025 & 0.814 & 1.080 \\ 
+		&  & (0.679) & (0.842) & (0.941) \\ 
 		& & & & \\ 
-		rps.ssm &  &  &  & $-$0.183 \\ 
-		&  &  &  & (1.186) \\ 
+		rps.abortion &  &  &  & 0.997 \\ 
+		&  &  &  & (1.251) \\ 
 		& & & & \\ 
-		partyid:secular.knowledge & $-$0.123 & $-$0.153 & $-$0.221 & $-$0.226 \\ 
-		& (0.125) & (0.134) & (0.146) & (0.147) \\ 
+		partyid:secular.knowledge & $-$0.123 & $-$0.153 & $-$0.221 & $-$0.254 \\ 
+		& (0.125) & (0.134) & (0.146) & (0.161) \\ 
 		& & & & \\ 
-		church:bible.collapsed &  & 0.169 & $-$0.106 & $-$0.109 \\ 
-		&  & (0.281) & (0.325) & (0.329) \\ 
+		church:bible.collapsed &  & 0.169 & $-$0.106 & $-$0.201 \\ 
+		&  & (0.281) & (0.325) & (0.361) \\ 
 		& & & & \\ 
-		secular.knowledge:church &  &  & 0.632$^{**}$ & 0.635$^{**}$ \\ 
-		&  &  & (0.262) & (0.266) \\ 
+		secular.knowledge:church &  &  & 0.632$^{**}$ & 0.783$^{**}$ \\ 
+		&  &  & (0.262) & (0.305) \\ 
 		& & & & \\ 
-		church:rps.ssm &  &  &  & $-$0.036 \\ 
-		&  &  &  & (0.437) \\ 
+		church:rps.abortion &  &  &  & 0.308 \\ 
+		&  &  &  & (0.541) \\ 
 		& & & & \\ 
-		Constant & 1.338$^{*}$ & 1.329 & 1.868 & 1.970 \\ 
-		& (0.697) & (1.164) & (1.284) & (1.341) \\ 
+		Constant & 1.338$^{*}$ & 1.329 & 1.868 & 1.170 \\ 
+		& (0.697) & (1.164) & (1.284) & (1.477) \\ 
 		& & & & \\ 
 		\hline \\[-1.8ex] 
 		Observations & 93 & 84 & 84 & 84 \\ 
-		Log Likelihood & $-$51.172 & $-$44.908 & $-$41.624 & $-$41.520 \\ 
-		Akaike Inf. Crit. & 110.345 & 103.817 & 99.248 & 103.039 \\ 
+		Log Likelihood & $-$51.172 & $-$44.908 & $-$41.624 & $-$37.971 \\ 
+		Akaike Inf. Crit. & 110.345 & 103.817 & 99.248 & 95.942 \\ 
 		\hline 
 		\hline \\[-1.8ex] 
 		\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\item Tables 6 and 7 pool all Evangelical Protestants, Roman Catholics, and Mainline Protestants together to look at their personal beliefs on whether their church opposes or supports different levels of same-sex marriage and abortion rights. This is used to understand if there are any projections of the respondent's own beliefs onto the religious tradition's actual stance. 
+\lstinputlisting[language=R, firstline=192, lastline=226]{rep_models.R} 
+\begin{table}[H] \centering 
 	\caption{Beliefs about church teaching on same-sex marriage by personal opinion on same-sex marriage Replication} 
 	\label{} 
 	\begin{tabular}{@{\extracolsep{5pt}} ccc} 
@@ -496,28 +495,27 @@
 		\hline \\[-1.8ex] 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\begin{table}[H] \centering 
 	\caption{Beliefs about church teaching on abortion by personal opinion on unrestricted abortion rights Replication} 
 	\label{} 
-	\begin{tabular}{@{\extracolsep{5pt}} cccc} 
+	\begin{tabular}{@{\extracolsep{5pt}} ccc} 
 		\\[-1.8ex]\hline 
 		\hline \\[-1.8ex] 
-		& 0 & 1 & NA \\ 
+		& Opposes & Supports \\ 
 		\hline \\[-1.8ex] 
-		1 & Always Permit & 0 & $0.01$ \\ 
-		2 & DK & 0 & $0.06$ \\ 
-		3 & Establish Need & 0 & $0.08$ \\ 
-		4 & Never Permit & 0 & $0.39$ \\ 
-		5 & Standard GOP Exceptions & 0 & $0.45$ \\ 
-		6 & Always Permit & 1 & $0.34$ \\ 
-		7 & DK & 1 & $0.16$ \\ 
-		8 & Establish Need & 1 & $0.14$ \\ 
-		9 & Never Permit & 1 & $0.17$ \\ 
-		10 & Standard GOP Exceptions & 1 & $0.19$ \\ 
+		Always Permit & $0.01$ & $0.34$ \\ 
+		DK & $0.06$ & $0.16$ \\ 
+		Establish Need & $0.08$ & $0.14$ \\ 
+		Never Permit & $0.39$ & $0.17$ \\ 
+		Standard GOP Exceptions & $0.45$ & $0.19$ \\ 
+		Total & $1$ & $1$ \\ 
+		n & $200$ & $200$ \\ 
 		\hline \\[-1.8ex] 
 	\end{tabular} 
 \end{table} 
-\begin{table}[!htbp] \centering 
+\item Table 8 shows the Evangelical Protestant and Roman Catholic identifiers who misunderstand their church's teachings and how that affects their view of same-sex marriage and abortion rights. For this the author created a new dummy variable that tested whether the respondant thinks their church is more liberal or not (1 = more liberal; 0 = correct or does not know). The main finding was that people who misunderstands their church's teachings for being more liberal and attend church more, they are more likely to support same-sex marriage and abortion rights. 
+\lstinputlisting[language=R, firstline=242, lastline=261]{rep_models.R} 
+\begin{table}[H] \centering 
 	\caption{Incorrect RPS reports only influence political attitudes through church attendance: support for same-sex marriage and unrestricted abortion rights, evangelical Protestants and Roman Catholics Replication} 
 	\label{} 
 	\scriptsize 
@@ -596,8 +594,16 @@
 		\textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 	\end{tabular} 
 \end{table} 
+\end{description}
 \clearpage
-\section{Original Figures}
+\section{Replicated Figures}
+\begin{description}
+	\item For the figures in the paper, the code below uses an old package "Zelig" that is not available with the newest version of R studio. Therefore, I had to download it from the CRAN archive. The main goal with this code is to run a regression and be able to simulate the first difference of each scenerio.  
+	\lstinputlisting[language=R, firstline=31, lastline=40]{rep_ssm_figures.R} 
+	\item The figures consist of three points: lower bound, upper bound, and the partial effect of increasing church attendance on supporting same-sex marriage and abortion rights for Evangelical Protestants and Roman Catholics. 
+	\lstinputlisting[language=R, firstline=154, lastline=159]{rep_ssm_figures.R} 
+	\item In the graphs below, it consistantly shows that when a respondant knows their church's stance the prodicted probabilty of RPS decreases when Therefore, those who attend church less, tend to align more with the church's stance on same-sex marriage or abortion. 
+\end{description}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.45\textwidth]{Fig1.pdf}
@@ -608,13 +614,22 @@
 \clearpage
 \section{My Extension}
 \begin{description}
-	\item For the extension of this project, I decided to look at the "Culture Wars" model and remove the interaction term of secular knowledge and church attendance to test if this term contributes to the model's fit. I choose to do this because in almost every (except Mainline Protestant's support of abortion rights) this term is not statisically significant to the model. So, I looked at three out of the four "Culture Wars" logistic regression models that reported that the term was not statisically significant, removed the interaction term, then compared it to the original model with the term present using a partial F-test. 
-	\item $H_0: \beta_{\text{church} \times \text{secular.knowledge}} = 0$
-	\item $H_1: \beta_{\text{church} \times \text{secular.knowledge}} \neq 0$
+	\item For the extension of this project, I decided to examine the "Culture Wars" model and remove the interaction term between secular knowledge and church attendance to test if this term has a meaningful contribution to the model's fit. In the original model, this interaction captures whether the effect of secular political knowledge on policy attitudes is conditioned by church attendance and is the main mechanism for the model. I choose to do this because in almost every (except Mainline Protestant's support of abortion rights) this term is not statisically significant to the model. By removing it, I am testing whether there is statistical evidence for the interaction effect in the model. Specifically, I examined the three logistic regressions where the interaction was not significant (four "Culture Wars" model total), excluded the interaction term, then compared the reduced and full model using a Likelihood Ratio Test.
+\begin{itemize}
+	\item Null hypothesis ($H_0$): The interaction between church attendance and secular political knowledge has no effect on policy support. 
+	\[
+	H_0: \beta_{\text{church} \times \text{secular\_knowledge}} = 0
+	\]
+	\item Alternative hypothesis ($H_1$): The interaction between church attendance and secular political knowledge significantly affects policy support.
+	\[
+	H_1: \beta_{\text{church} \times \text{secular\_knowledge}} \neq 0
+	\]
+\end{itemize}
 \lstinputlisting[language=R, firstline=271, lastline=287]{rep_models.R} 
 \end{description}
+\newpage
 \begin{table}[!htbp] \centering 
-	\caption{Partial F-test: Evangelical Protestants and Roman Catholics' support of SSM } 
+	\caption{Likelihood Ratio Test: Evangelical Protestants and Roman Catholics' support of SSM } 
 	\label{} 
 	\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
 		\\[-1.8ex]\hline 
@@ -627,7 +642,7 @@
 	\end{tabular} 
 \end{table} 
 \begin{table}[H] \centering 
-	\caption{Partial F-test: Evangelical Protestants and Roman Catholics' support of Abortion } 
+	\caption{Likelihood Ratio Test: Evangelical Protestants and Roman Catholics' support of Abortion } 
 	\label{} 
 	\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
 		\\[-1.8ex]\hline 
@@ -640,7 +655,7 @@
 	\end{tabular} 
 \end{table} 
 \begin{table}[H] \centering 
-	\caption{Partial F-test: Mainline Protestants' support of Abortion } 
+	\caption{Likelihood Ratio Test: Mainline Protestants' support of Abortion } 
 	\label{} 
 	\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
 		\\[-1.8ex]\hline 
@@ -653,7 +668,12 @@
 	\end{tabular} 
 \end{table} 
 \begin{description}
-\item Based on the p-values in each test (they are all greater than 0.05), we fail to reject the null hypothesis that the interaction term secular knowledge x church attendence has no effect on if a respondant supports an issue in the "Culture Wars" model. Therefore, for these particular models, it seems that this interaction is not needed. 
+\item Based on the p-values of 0.918, 0.98, and 0.561,  we fail to reject the null hypothesis that the effect of secular knowledge on issue support does not vary by the frequency of church attendance. Therefore, the interaction term between secular knowledge and church attendence are not significant and is not necessary to be included in these "Culture Wars" models. This result suggests limited statisical evidence for the claim that frequency of church attendance effects the influence of secular knowledge, casting uncertainity for the validity of this mechanism in the model. 
 \end{description}
-
+\newpage
+\section*{References}
+Schmidt, Eric R. (2017).
+``The Influence of Religious--Political Sophistication on U.S. Public Opinion.''
+\textit{Political Behavior}, 40(1), 21--53.
+https://doi.org/10.1007/s11109-017-9390-z
 \end{document}
